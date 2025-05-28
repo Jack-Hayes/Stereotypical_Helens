@@ -1,17 +1,33 @@
+import sys
 import numpy as np
-import scipy
+import scipy.stats as stats
 
-
-# This method accepts a percentile threshold as part of pdal args, converts it to a Z-score
-# and then filters out points that fall outside this range. We use a nodata value (-9999) for
-# points that fall outside of the specified threshold
 def filter_percentile(ins, outs):
-    # pdal args is defined in the PDAL pipeline that calls this script
-    percentile_threshold = pdalargs["percentile_threshold"]  # noqa: F821
-    z_val = scipy.stats.norm.ppf(percentile_threshold)
-    mean = np.nanmean(ins["Z"])
-    std = np.nanstd(ins["Z"])
-    z_scores = (ins["Z"] - mean) / std
-    filtered_classification = np.where(z_scores > z_val, 18, ins["Classification"])
-    outs["Classification"] = filtered_classification
-    return True
+    """
+    Trims extreme Z outliers via Z-score thresholding.
+    Uses the pdalargs global for 'percentile_threshold'.
+    """
+    try:
+        # pdalargs is injected by PDAL into this module's globals
+        # Only two arguments -- ins and outs numpy arrays -- can be passed!
+        thr = float(pdalargs.get("percentile_threshold", 0.95))
+        z_val = stats.norm.ppf(thr)
+
+        z = ins["Z"]
+        m = np.nanmean(z)
+        s = np.nanstd(z)
+        zs = (z - m) / s
+
+        newclass = np.where(zs > z_val, 18, ins["Classification"])
+        outs["Classification"] = newclass
+
+        # Debug print to stderr
+        sys.stderr.write(
+            f"[filter_percentile] thr={thr}, z_val={z_val:.2f}, "
+            f"orig={len(z)}, kept={(zs <= z_val).sum()}\n"
+        )
+        return True
+
+    except Exception as e:
+        # Raise so PDAL prints stacktrace instead of hanging
+        raise RuntimeError(f"filter_percentile error: {e}")
