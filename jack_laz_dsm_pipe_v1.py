@@ -149,7 +149,7 @@ def create_pdal_pipeline(
     pointcloud_file="pointcloud",  # Base filename for writer
     input_crs=None,            # WKT of source CRS
     output_crs=None,           # WKT or EPSG: target CRS
-    output_type="laz",        # 'laz' or 'las'
+    output_type="laz",         # 'laz' or 'las'
     dsm_percentile=None,       # If set, keep only top X fraction for DSM (e.g. 0.98 for RH98)
     percentile_filter=True,    # Always run outlier-trimming noise filter
     percentile_threshold=0.95  # Z-score threshold for noise trimming

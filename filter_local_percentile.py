@@ -33,11 +33,9 @@ def filter_local_percentile(ins, outs):
         # 3Apply to full array
         mask = z >= cutoff
 
-        # Copy all dimensions by dtype.names
-        #  ins.dtype.names (the correct way to list structured‐array fields) 
-        # instead of the nonexistent ins.dimensions.
-        for field in ins.dtype.names:
-            outs[field] = ins[field][mask]
+        # Copy all dimensions by dict keys (ins is a dict of arrays)
+        for field, arr in ins.items():
+            outs[field] = arr[mask]
 
         sys.stderr.write(
             f"[filter_local_pct] thr={thr}, cutoff={cutoff:.2f}, "
