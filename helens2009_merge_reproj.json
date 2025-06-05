@@ -1,0 +1,38 @@
+[
+  {
+    "type": "readers.las",
+    "filename": "/home/jehayes/helens/data/als/lpcs/WA_MT_ST_HELENS_2009/USGS_LPC_WA_MT_ST_HELENS_2009_000018.laz",
+    "override_srs": "/home/jehayes/helens/CRS/WA_SP_South_NAVD88_Geoid03_us-ft.wkt"
+  },
+  {
+    "type": "readers.las",
+    "filename": "/home/jehayes/helens/data/als/lpcs/WA_MT_ST_HELENS_2009/USGS_LPC_WA_MT_ST_HELENS_2009_000019.laz",
+    "override_srs": "/home/jehayes/helens/CRS/WA_SP_South_NAVD88_Geoid03_us-ft.wkt"
+  },
+  {
+    "type": "readers.las",
+    "filename": "/home/jehayes/helens/data/als/lpcs/WA_MT_ST_HELENS_2009/USGS_LPC_WA_MT_ST_HELENS_2009_000020.laz",
+    "override_srs": "/home/jehayes/helens/CRS/WA_SP_South_NAVD88_Geoid03_us-ft.wkt"
+  },
+  {
+    "type": "readers.las",
+    "filename": "/home/jehayes/helens/data/als/lpcs/WA_MT_ST_HELENS_2009/USGS_LPC_WA_MT_ST_HELENS_2009_000034.laz",
+    "override_srs": "/home/jehayes/helens/CRS/WA_SP_South_NAVD88_Geoid03_us-ft.wkt"
+  },
+  {
+    "type": "readers.las",
+    "filename": "/home/jehayes/helens/data/als/lpcs/WA_MT_ST_HELENS_2009/USGS_LPC_WA_MT_ST_HELENS_2009_000035.laz",
+    "override_srs": "/home/jehayes/helens/CRS/WA_SP_South_NAVD88_Geoid03_us-ft.wkt"
+  },
+  {
+    "type": "filters.merge"
+  },
+  {
+    "type": "filters.reprojection",
+    "out_srs": "/home/jehayes/helens/CRS/target_6339_compound.wkt"
+  },
+  {
+    "type": "writers.las",
+    "filename": "/home/jehayes/helens/final_las_reproj/2009/helens_2009_merged_6339.laz"
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "type": "readers.las",
+    "filename": "/home/jehayes/helens/data/als/lpcs/usfs_2017/usfs_2017.laz"
+  },
+  {
+    "type": "filters.reprojection",
+    "out_srs": "/home/jehayes/helens/CRS/target_6339_compound.wkt"
+  },
+  {
+    "type": "writers.las",
+    "filename": "/home/jehayes/helens/final_las_reproj/2017/points_2017_to_6339.laz"
+  }
+]
